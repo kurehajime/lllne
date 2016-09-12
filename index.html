@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<HTML>
+    <HEAD>
+        <title>lllne</title>
+        <meta content="text/html" charset="UTF-8">
+        <meta name="viewport" content="width=device-width,user-scalable=no">
+        <meta name="description" content="lllne is a board game similar to chess.">
+        <meta property="og:title" content="lllne">
+        <meta property="og:type" content="website">
+        <meta property="og:description" content="lllne is a board game similar to chess.">
+        <meta property="og:url" content="https://xiidec.appspot.com/colamone/colamone.html">
+        <meta property="og:image" content="https://xiidec.appspot.com/img/colamone.png">
+        <meta property="og:site_name" content="lllne">
+        <meta property="fb:app_id" content="1687146941532105" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@kurehajime" />
+        <meta name="twitter:creator" content="@kurehajime" />
+        <meta name="theme-color" content="#2E2E2E">
+        <link rel="apple-touch-icon" href="https://xiidec.appspot.com/apple-touch-icon.png">
+        <link rel="alternate" hreflang="x-default" href="https://xiidec.appspot.com/colamone/colamone.html" />
+        <link rel="alternate" hreflang="ja" href="https://xiidec.appspot.com/colamone/colamone-ja.html" />
+        <link rel="alternate" hreflang="en" href="https://xiidec.appspot.com/colamone/colamone-en.html" />
+        <link rel="manifest" href="./manifest.json">
+        <link rel="stylesheet" type="text/css" href="boardgame.css" inline>
+        <link rel="stylesheet" type="text/css" href="critical.css" inline>
+    </HEAD>
+    <BODY onLoad="">
+<div data-role="page" data-title="lllne">
+        <div id="main" role="main" class="ui-content">
+            <canvas id="canv" width="500px" height="500px"></canvas>
+            <div id="message">
+                <span id="gamename">えるえるえるね</span> by <A Href="https://twitter.com/kurehajime">@kurehajime</A><br/>
+                <span id="blue" class="score">Blue: 0/8</span> - <span id="red" class="score"> Red: 0/8</span>　<span id="wins"></span>
+                <div class="ui-field-contain " id="lvs">
+                    <select id="level"  data-inline="true" >
+                        <option value="1" class="lv">Lv.1</option>
+                        <option value="2"  class="lv" selected="selected">Lv.2</option>
+                        <option value="3" class="lv">Lv.3</option>
+                        <option value="4"  class="lv">Lv.4</option>
+                        <option value="5"  class="lv">Lv.5</option>
+                    </select>
+                    <button type="button" id="newgame"  onclick="location.reload()"   class="ui-btn ui-btn-inline ui-corner-all ui-icon-refresh ui-btn-icon-left ui-shadow" >Reset</button>
+                </div>
+<span id="log"><button type="button" id="prevprev" onclick="" align="right" class="ui-btn ui-btn-inline  ui-corner-all ui-shadow"> |&lt; </button><button type="button" id="prev" onclick="" align="right" class="ui-btn ui-btn-inline  ui-corner-all ui-shadow"> &lt; </button><button type="button" id="next" onclick="" align="right" class="ui-btn ui-btn-inline  ui-corner-all ui-shadow"> &gt; </button><button type="button" id="nextnext" onclick="" align="right" class="ui-btn ui-btn-inline  ui-corner-all ui-shadow"> &gt;|</button></span>
+<span id="span_replay"><button type="button" id="replay" onclick=""  class="ui-btn ui-icon-video ui-btn-icon-left"> View log </button></span>
+<span id="span_tweetlog"><button type="button" id="tweetlog" onclick=""  class="ui-btn ui-icon-action ui-btn-icon-left"> Tweet result </button></span>
+<div data-role="collapsible" id="collapsible" class="ui-shadow">
+    <h5 class="howtoplay"><span id="htp" class="anime_on">How to play lllne</span></h5>
+<p id="manual_en" class="manual" lang="en" style="display:none">(1) lllne is kinda like chess. 
+     Only some loose similarities. 
+(2) Each piece can move 1 tile in the direction 
+     of any of it's dots. 
+(3) If a piece gets to the other side, 
+     you get how many ever points it's worth. 
+(4) If you get 8 points, you win.
+(5) When a piece gets to the other side, you can 
+     no longer move it and the enemy cannot take it. 
+(6) When a player can't make any more moves, 
+     whoever has the highest score wins.
+(7) if the current position on the board
+     appeared 3 times then the result is a draw.</p>
+<p id="manual_ja" class="manual" lang="ja" style="display:none">①えるえるえるねはﾁｪｽや将棋に似たﾎﾞｰﾄﾞｹﾞｰﾑです。
+②各コマは、丸が付いている方向に進めます。
+③取られたコマは盤上から除かれ、再利用できません。
+④奥の陣地まで進めるとコマの数字が得点になります。
+⑤得点になったコマは動く事も取る事もできません。
+⑥先に得点が8点以上になったプレーヤーの勝利です。
+⑦どちらかのﾌﾟﾚｰﾔｰの動かせるコマが無くなった時は
+　 その時点で点数の高いﾌﾟﾚｰﾔｰの勝利です。 
+⑧同一の局面が3回現れた時は千日手で引き分けです。</p>
+
+                </div>
+<span id="sns" style="">
+    <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fxiidec.appspot.com%2Fcolamone%2Fcolamone.html&layout=button&mobile_iframe=true&appId=1687146941532105&width=60&height=20" width="60" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>  <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://xiidec.appspot.com/colamone/colamone.html" data-hashtags="colamone, boardgames" data-lang="en"  data-size="default"></a></span>
+                </div>
+        </div>
+    <IMG src="bk.gif" class="preload" style="display:none">
+    <IMG src="koma.png" class="preload" style="display:none">
+  <div data-role="footer" id="footer">
+    <p  style="text-align:center;font-size:10px;">(c)2014–<script language=JavaScript type=text/javascript> document.write(new Date().getFullYear()); </script> <A Href="https://twitter.com/kurehajime">@kurehajime</A>. All Rights Reserved. / Ver.<a href="https://github.com/kurehajime/colamone_js"  TARGET="_blank" >20160912001</a>/<span id="time"></span></p>
+  </div>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"  defer ></script>
+<script type="text/javascript" src="jq_option.js?20160312001" defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"  defer></script>
+<script type="text/javascript" src="ai.js?201606160022" defer></script>
+<script type="text/javascript" src="boardgame.js?201606160022" defer></script>
+<script type="text/javascript">
+    /** 
+     * 国際化
+     */
+    function set_manual(){
+        var lang="";
+        var paramObj = new Object();
+        if (1 < document.location.search.length) {
+            var paramstr = document.location.search.substring(1).split('&');
+            for (var i = 0; i < paramstr.length; i++) {
+                var entry = paramstr[i].split('=');
+                var key = decodeURIComponent(entry[0]);
+                var value = decodeURIComponent(entry[1]);
+                paramObj[key] = decodeURIComponent(value);
+            }
+        }
+        if(paramObj["lang"]){
+            lang=paramObj["lang"];
+        }else{
+            lang=(navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0,2).toLowerCase();
+        }
+        
+        if(lang==="ja"||lang==="ja-jp"){
+            $("#manual_en").hide();
+            $("#manual_ja").show();
+            var canvas= document.getElementById("canv");
+            if (!canvas || !canvas.getContext) { 
+                alert("申し訳ございません。お使いのブラウザは対応していません。"); 
+            }
+            $('#htp').text("えるえるえるねの遊び方");
+            $('#replay').text("棋譜を再生");
+            $('#tweetlog').text("棋譜をツイートする");
+            $('#newgame').text("リセット");
+        }else{
+            $("#manual_en").show();
+            $("#manual_ja").hide();
+            $('#htp').text("How to play lllne");
+            $('#newgame').text("Reset");
+            var canvas= document.getElementById("canv");
+            if (!canvas || !canvas.getContext) { 
+                alert("Sorry. Your browser does not support."); 
+            }
+        }
+    }
+    /** 
+     * 小さい画面ではViewportを固定化
+     */
+    function zoom(){
+        var viewport = document.querySelector("meta[name=viewport]");
+        if(screen.width<500&&screen.height<500){
+            if(screen.width<screen.height){
+                viewport.setAttribute('content', 'width=500,user-scalable=no');
+            }else{
+                viewport.setAttribute('content', 'height=500,user-scalable=no'); 
+            }
+        }else if(screen.width<500){
+            viewport.setAttribute('content', 'width=500,user-scalable=no');
+        }else if(screen.height<500){
+            viewport.setAttribute('content', 'height=500,user-scalable=no');
+        }
+        //iOS9のViewportはなぜか機能してくれない。
+        if(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream){
+            var w=screen.width;
+            var w2=520;
+            if(Math.abs(window.orientation) != 0){
+                w=screen.height;
+                w2=900;
+            }
+            var rate=Math.round((w/w2)*1000) / 1000.0;
+            if(rate==Math.round(rate)){//iOS 9のViewportは整数指定すると機能しない
+                rate+=0.0001;
+            }
+ 
+            viewport.setAttribute(
+                'content', 
+                'initial-scale='+rate+', minimum-scale='+rate+', maximum-scale='+rate+', user-scalable=no'
+                );
+        }
+
+    }
+    document.addEventListener( 'DOMContentLoaded', function()
+    {
+       set_manual();
+    }, false );
+    zoom();
+        </script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-75520116-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+ </BODY>
+</HTML>
